@@ -1,0 +1,202 @@
+<mvc:View controllerName="apmgtnsp.workflowuimodule.controller.App"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+
+    <App id="app">
+        <Page id="asset-approval-page" showHeader="false" showFooter="true" class="whitePageBackground">
+
+            <content>
+                <FlexBox width="100%" justifyContent="Center" class="sapUiSmallMarginTop">
+                    <VBox width="100%" class="sapUiResponsiveMargin">
+
+                        <VBox height="1rem" />
+
+                        <!-- Workflow Description -->
+                        <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
+                            <content>
+                                <VBox class="sapUiMediumPadding">
+                                    <Title text="{context>/WorkflowDesc}"
+                                           level="H5"
+                                           titleStyle="H5"
+                                           wrapping="true" />
+                                </VBox>
+                            </content>
+                        </Panel>
+
+                        <!-- Header Data -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
+                            <headerToolbar>
+                                <Toolbar height="2rem">
+                                    <core:Icon src="sap-icon://accelerated" class="sapUiSmallMarginEnd" />
+                                    <Title text="Header Data" class="panelTitle" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <l:Grid defaultSpan="XL6 L6 M6 S12" vSpacing="0" hSpacing="2" class="sapUiMediumPadding">
+                                    <VBox class="sapUiSmallMarginBottom">
+                                        <Text text="Request Number" class="labelGrey" />
+                                        <Text text="{context>/RequestNo}" class="valueBlue" />
+                                    </VBox>
+                                    <VBox class="sapUiSmallMarginBottom">
+                                        <Text text="Request Status" class="labelGrey" />
+                                        <ObjectStatus
+                                            id="txtStatus"
+                                            text="{= ${context>/IsReject} ? 'Reject' : (${context>/IsAllApproved} ? 'All Approved' : 'Pending Approval') }"
+                                            state="{= ${context>/IsReject} ? 'Error' : (${context>/IsAllApproved} ? 'Success' : 'Information') }"
+                                            icon="{= ${context>/IsReject} ? 'sap-icon://decline' : (${context>/IsAllApproved} ? 'sap-icon://accept' : 'sap-icon://pending') }" />
+                                    </VBox>
+                                </l:Grid>
+                            </content>
+                        </Panel>
+                        </VBox>
+
+                        <!-- Iframe Content -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
+                            <headerToolbar>
+                                <Toolbar height="2rem">
+                                    <core:Icon src="sap-icon://document-text" class="sapUiSmallMarginEnd" />
+                                    <Title text="รายละเอียดเอกสาร" class="panelTitle" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <core:HTML content="{view>/iframeContent}" sanitizeContent="false" width="100%" />
+                            </content>
+                        </Panel>
+                        </VBox>
+
+                        <!-- Nested Form (pc01) -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <mvc:XMLView
+                            id="nestedspc01"
+                            viewName="apmgtnsp.workflowuimodule.view.ZAPW102Form"
+                            visible="{= ${context>/WorkflowType} === 'pc01' }" />
+                        </VBox>
+
+                        <!-- Attachments -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
+                            <headerToolbar>
+                                <Toolbar height="2rem">
+                                    <core:Icon src="sap-icon://attachment" class="sapUiSmallMarginEnd" />
+                                    <Title text="เอกสารแนบทั้งหมด" class="panelTitle" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <List id="fileList" items="{view>/Attachments}" noDataText="ไม่มีเอกสารแนบ" showSeparators="Inner">
+                                    <items>
+                                        <CustomListItem>
+                                            <HBox alignItems="Center" class="sapUiSmallPadding">
+                                                <core:Icon src="{view>fileIcon}" size="1rem" class="sapUiSmallMarginEnd" />
+                                                <Link text="{view>fileName}" class="valueBlue" target="_blank" href="{view>fileUrl}" />
+                                            </HBox>
+                                        </CustomListItem>
+                                    </items>
+                                </List>
+                            </content>
+                        </Panel>
+                        </VBox>
+                        <VBox height="1rem" />
+
+                        <!-- Signature + Comment (แสดงเมื่อยังไม่ approve/reject) -->
+                        <VBox visible="{= !${context>/IsAllApproved} &amp;&amp; !${context>/IsReject} }">
+                            <l:Grid defaultSpan="XL6 L6 M6 S12" vSpacing="0" hSpacing="1" width="100%" class="sapUiTinyMarginBottom sapUiNoContentPadding">
+
+                                <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel" height="100%">
+                                    <headerToolbar>
+                                        <Toolbar height="2rem">
+                                            <core:Icon src="sap-icon://edit" class="sapUiSmallMarginEnd" />
+                                            <Title text="Digital Signature" class="panelTitle" />
+                                        </Toolbar>
+                                    </headerToolbar>
+                                    <content>
+                                        <VBox class="sapUiMediumPadding">
+                                            <HBox wrap="Wrap" alignItems="End" class="sapUiSmallMarginBottom">
+                                                <VBox width="45%" class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                                                    <Label text="Username" required="true" class="customLabel" />
+                                                    <Input liveChange=".onLoginChange" id="usernameInput"
+                                                           value="{context>/SignatureUsername}"
+                                                           placeholder="กรอก Username ของคุณ" />
+                                                </VBox>
+                                                <VBox width="45%" class="sapUiTinyMarginBottom">
+                                                    <Label text="Password" required="true" class="customLabel" />
+                                                    <Input liveChange=".onLoginChange" id="passwordInput"
+                                                           type="Password"
+                                                           value="{context>/SignaturePassword}"
+                                                           placeholder="กรอก Password เพื่อยืนยัน" />
+                                                </VBox>
+                                            </HBox>
+                                            <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                                                <Button id="loginButton"
+                                                        text="Sign (ลงนาม)"
+                                                        icon="sap-icon://write-new-document"
+                                                        type="Emphasized"
+                                                        class="signButton"
+                                                        press=".onLoginPress" />
+                                            </HBox>
+                                            <VBox width="100%">
+                                                <Label text="Signature Token" class="customLabel sapUiTinyMarginBottom" />
+                                                <VBox class="dashedTokenBox">
+                                                    <Text text="{context>/SignatureToken}" id="signatureToken" />
+                                                </VBox>
+                                            </VBox>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <Panel expandable="false" expanded="true" class="contentSectionPanel generalPanel" height="100%">
+                                    <headerToolbar>
+                                        <Toolbar height="2rem">
+                                            <core:Icon src="sap-icon://comment" class="sapUiSmallMarginEnd" />
+                                            <Title text="Approver Comment" class="panelTitle" />
+                                        </Toolbar>
+                                    </headerToolbar>
+                                    <content>
+                                        <VBox class="sapUiMediumPadding">
+                                            <Label text="Comment" class="customLabel" />
+                                            <TextArea
+                                                width="100%"
+                                                rows="7"
+                                                placeholder="ใส่ความคิดเห็นหรือหมายเหตุเพิ่มเติมที่นี่..."
+                                                id="approverComment"
+                                                value="{context>/ApproverComment}"
+                                                valueLiveUpdate="true"
+                                                liveChange=".onCommentLiveChange" />
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                            </l:Grid>
+                        </VBox>
+
+                        <!-- Comment (แสดงเมื่อ approve/reject แล้ว) -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <Panel visible="{= ${context>/IsAllApproved} || ${context>/IsReject} }"
+                               expandable="false" expanded="true"
+                               class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
+                            <headerToolbar>
+                                <Toolbar height="2rem">
+                                    <core:Icon src="sap-icon://comment" class="sapUiSmallMarginEnd" />
+                                    <Title text="Comment" class="panelTitle" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <content>
+                                <VBox class="sapUiMediumPadding">
+                                    <Text text="{= ${context>/ApproverComment} ? ${context>/ApproverComment} : '-' }" wrapping="true" />
+                                </VBox>
+                            </content>
+                        </Panel>
+                        </VBox>
+                        <VBox height="2rem" />
+
+                    </VBox>
+                </FlexBox>
+            </content>
+
+        </Page>
+    </App>
+</mvc:View>
