@@ -164,46 +164,59 @@
         "IsReject":         { "type": "boolean", "title": "Is Reject"         },
         "IsClose":          { "type": "boolean", "title": "Is Close"          },
 
+        "CreatedBy":        { "type": "string", "title": "Created By"         },
+        "CreatedPosition":  { "type": "string", "title": "Created Position"   },
+        "CreatedDate":      { "type": "string", "title": "Created Date"       },
+
         "Approver1Name":     { "type": "string", "title": "Approver 1 Name"     },
         "Approver1Position": { "type": "string", "title": "Approver 1 Position" },
         "Approver1Date":     { "type": "string", "title": "Approver 1 Date"     },
+        "Approver1Comment":  { "type": "string", "title": "Approver 1 Comment"  },
 
         "Approver2Name":     { "type": "string", "title": "Approver 2 Name"     },
         "Approver2Position": { "type": "string", "title": "Approver 2 Position" },
         "Approver2Date":     { "type": "string", "title": "Approver 2 Date"     },
+        "Approver2Comment":  { "type": "string", "title": "Approver 2 Comment"  },
 
         "Approver3Name":     { "type": "string", "title": "Approver 3 Name"     },
         "Approver3Position": { "type": "string", "title": "Approver 3 Position" },
         "Approver3Date":     { "type": "string", "title": "Approver 3 Date"     },
+        "Approver3Comment":  { "type": "string", "title": "Approver 3 Comment"  },
 
         "Approver4Name":     { "type": "string", "title": "Approver 4 Name"     },
         "Approver4Position": { "type": "string", "title": "Approver 4 Position" },
         "Approver4Date":     { "type": "string", "title": "Approver 4 Date"     },
+        "Approver4Comment":  { "type": "string", "title": "Approver 4 Comment"  },
 
         "Approver5Name":     { "type": "string", "title": "Approver 5 Name"     },
         "Approver5Position": { "type": "string", "title": "Approver 5 Position" },
         "Approver5Date":     { "type": "string", "title": "Approver 5 Date"     },
+        "Approver5Comment":  { "type": "string", "title": "Approver 5 Comment"  },
 
         "Approver6Name":     { "type": "string", "title": "Approver 6 Name"     },
         "Approver6Position": { "type": "string", "title": "Approver 6 Position" },
         "Approver6Date":     { "type": "string", "title": "Approver 6 Date"     },
+        "Approver6Comment":  { "type": "string", "title": "Approver 6 Comment"  },
 
         "Approver7Name":     { "type": "string", "title": "Approver 7 Name"     },
         "Approver7Position": { "type": "string", "title": "Approver 7 Position" },
         "Approver7Date":     { "type": "string", "title": "Approver 7 Date"     },
+        "Approver7Comment":  { "type": "string", "title": "Approver 7 Comment"  },
 
         "Approver8Name":     { "type": "string", "title": "Approver 8 Name"     },
         "Approver8Position": { "type": "string", "title": "Approver 8 Position" },
         "Approver8Date":     { "type": "string", "title": "Approver 8 Date"     },
+        "Approver8Comment":  { "type": "string", "title": "Approver 8 Comment"  },
 
         "Approver9Name":     { "type": "string", "title": "Approver 9 Name"     },
         "Approver9Position": { "type": "string", "title": "Approver 9 Position" },
         "Approver9Date":     { "type": "string", "title": "Approver 9 Date"     },
+        "Approver9Comment":  { "type": "string", "title": "Approver 9 Comment"  },
 
         "Approver10Name":     { "type": "string", "title": "Approver 10 Name"     },
         "Approver10Position": { "type": "string", "title": "Approver 10 Position" },
-        "Approver10Date":     { "type": "string", "title": "Approver 10 Date"     }
-
+        "Approver10Date":     { "type": "string", "title": "Approver 10 Date"     },
+        "Approver10Comment":  { "type": "string", "title": "Approver 10 Comment"  }
       }
     },
     "outputs": {

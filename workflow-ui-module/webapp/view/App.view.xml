@@ -174,7 +174,7 @@
                         </VBox>
 
                         <!-- Comment (แสดงเมื่อ approve/reject แล้ว) -->
-                        <VBox class="sapUiResponsiveMargin">
+                        <!-- <VBox class="sapUiResponsiveMargin">
                         <Panel visible="{= ${context>/IsAllApproved} || ${context>/IsReject} }"
                                expandable="false" expanded="true"
                                class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
@@ -190,7 +190,7 @@
                                 </VBox>
                             </content>
                         </Panel>
-                        </VBox>
+                        </VBox> -->
                         <VBox height="2rem" />
 
                     </VBox>

@@ -17,26 +17,18 @@
                      <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
                             <core:Icon src="sap-icon://person-placeholder"
-                                color="{= ${context>/Approver1Name} ? '#27500A' : '#888780' }"
+                                color="{= ${context>/CreatedBy} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="ผู้จัดทำ" class="labelGrey" />
-                            <Text text="{context>/Approver1Name}" class="valueBlue" />
-                            <Text text="{context>/Approver1Position}" class="labelGrey"
-                                  visible="{= !!${context>/Approver1Position} }" />
-                            <Text text="{context>/Approver1Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver1Date} }" />
+                            <Text text="{context>/CreatedBy}" class="valueBlue" />
                             <ObjectStatus
-                                visible="{= !!${context>/Approver1Name} }"
-                                text="อนุมัติแล้ว"
+                                text="ดำเนินการแล้ว"
                                 icon="sap-icon://accept"
                                 state="Success" />
-                            <ObjectStatus
-                                visible="{= !${context>/Approver1Name} }"
-                                text="รอดำเนินการ"
-                                state="None" />
+                
                         </VBox>
                     </HBox>
 
@@ -50,10 +42,12 @@
                         <VBox>
                             <Text text="ผู้ขอเบิก" class="labelGrey" />
                             <Text text="{context>/Approver1Name}" class="valueBlue" />
-                            <Text text="{context>/Approver1Position}" class="labelGrey"
+                            <!-- <Text text="{context>/Approver1Position}" class="labelGrey"
                                   visible="{= !!${context>/Approver1Position} }" />
                             <Text text="{context>/Approver1Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver1Date} }" />
+                                  visible="{= !!${context>/Approver1Date} }" /> -->
+                            <Text text="{= ${context>/Approver1Comment} ? 'Comment: ' + ${context>/Approver1Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver1Name} }"
                                 text="อนุมัติแล้ว"
@@ -76,10 +70,12 @@
                         <VBox>
                             <Text text="ผู้ตรวจสอบ" class="labelGrey" />
                             <Text text="{context>/Approver2Name}" class="valueBlue" />
-                            <Text text="{context>/Approver2Position}" class="labelGrey"
+                            <!-- <Text text="{context>/Approver2Position}" class="labelGrey"
                                   visible="{= !!${context>/Approver2Position} }" />
                             <Text text="{context>/Approver2Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver2Date} }" />
+                                  visible="{= !!${context>/Approver2Date} }" /> -->
+                            <Text text="{= ${context>/Approver2Comment} ? 'Comment: ' + ${context>/Approver2Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver2Name} }"
                                 text="อนุมัติแล้ว"
@@ -102,10 +98,12 @@
                         <VBox>
                             <Text text="ผู้อนุมัติ" class="labelGrey" />
                             <Text text="{context>/Approver3Name}" class="valueBlue" />
-                            <Text text="{context>/Approver3Position}" class="labelGrey"
+                            <!-- <Text text="{context>/Approver3Position}" class="labelGrey"
                                   visible="{= !!${context>/Approver3Position} }" />
                             <Text text="{context>/Approver3Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver3Date} }" />
+                                  visible="{= !!${context>/Approver3Date} }" /> -->
+                            <Text text="{= ${context>/Approver3Comment} ? 'Comment: ' + ${context>/Approver3Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver3Name} }"
                                 text="อนุมัติแล้ว"
@@ -128,10 +126,12 @@
                         <VBox>
                             <Text text="กองงบประมาณ" class="labelGrey" />
                             <Text text="{context>/Approver4Name}" class="valueBlue" />
-                            <Text text="{context>/Approver4Position}" class="labelGrey"
-                                  visible="{= !!${context>/Approver4Position} }" />
-                            <Text text="{context>/Approver4Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver4Date} }" />
+                             <!-- <Text text="{context>/Approver4Position}" class="labelGrey"
+                                 visible="{= !!${context>/Approver4Position} }" />
+                             <Text text="{context>/Approver4Date}" class="labelGrey"
+                                 visible="{= !!${context>/Approver4Date} }" /> -->
+                            <Text text="{= ${context>/Approver4Comment} ? 'Comment: ' + ${context>/Approver4Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver4Name} }"
                                 text="อนุมัติแล้ว"
@@ -154,10 +154,12 @@
                         <VBox>
                             <Text text="ผู้ตรวจสอบการจ่ายเงิน" class="labelGrey" />
                             <Text text="{context>/Approver5Name}" class="valueBlue" />
-                            <Text text="{context>/Approver5Position}" class="labelGrey"
+                            <!-- <Text text="{context>/Approver5Position}" class="labelGrey"
                                   visible="{= !!${context>/Approver5Position} }" />
                             <Text text="{context>/Approver5Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver5Date} }" />
+                                  visible="{= !!${context>/Approver5Date} }" /> -->
+                            <Text text="{= ${context>/Approver5Comment} ? 'Comment: ' + ${context>/Approver5Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver5Name} }"
                                 text="อนุมัติแล้ว"
@@ -180,10 +182,12 @@
                         <VBox>
                             <Text text="ผู้อนุมัติการจ่ายเงิน" class="labelGrey" />
                             <Text text="{context>/Approver6Name}" class="valueBlue" />
-                            <Text text="{context>/Approver6Position}" class="labelGrey"
+                            <!-- <Text text="{context>/Approver6Position}" class="labelGrey"
                                   visible="{= !!${context>/Approver6Position} }" />
                             <Text text="{context>/Approver6Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver6Date} }" />
+                                  visible="{= !!${context>/Approver6Date} }" /> -->
+                            <Text text="{= ${context>/Approver6Comment} ? 'Comment: ' + ${context>/Approver6Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver6Name} }"
                                 text="อนุมัติแล้ว"
@@ -206,10 +210,12 @@
                         <VBox>
                             <Text text="ผู้อนุมัติการจ่ายเงิน" class="labelGrey" />
                             <Text text="{context>/Approver7Name}" class="valueBlue" />
-                            <Text text="{context>/Approver7Position}" class="labelGrey"
+                            <!-- <Text text="{context>/Approver7Position}" class="labelGrey"
                                   visible="{= !!${context>/Approver7Position} }" />
                             <Text text="{context>/Approver7Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver7Date} }" />
+                                  visible="{= !!${context>/Approver7Date} }" /> -->
+                            <Text text="{= ${context>/Approver7Comment} ? 'Comment: ' + ${context>/Approver7Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver7Name} }"
                                 text="อนุมัติแล้ว"
@@ -231,10 +237,12 @@
                         <VBox>
                             <Text text="ผู้จ่ายเงิน" class="labelGrey" />
                             <Text text="{context>/Approver8Name}" class="valueBlue" />
-                            <Text text="{context>/Approver8Position}" class="labelGrey"
+                            <!-- <Text text="{context>/Approver8Position}" class="labelGrey"
                                   visible="{= !!${context>/Approver8Position} }" />
                             <Text text="{context>/Approver8Date}" class="labelGrey"
-                                  visible="{= !!${context>/Approver8Date} }" />
+                                  visible="{= !!${context>/Approver8Date} }" /> -->
+                            <Text text="{= ${context>/Approver8Comment} ? 'Comment: ' + ${context>/Approver8Comment} : 'Comment: -' }" 
+                                class="labelGrey" />
                             <ObjectStatus
                                 visible="{= !!${context>/Approver8Name} }"
                                 text="อนุมัติแล้ว"
