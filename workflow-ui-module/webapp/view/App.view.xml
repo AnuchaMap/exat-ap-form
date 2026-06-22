@@ -69,12 +69,33 @@
                         </Panel>
                         </VBox>
 
+                        <!-- Nested Form (pv01) -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <mvc:XMLView
+                            id="nestedspv01"
+                            viewName="apmgtnsp.workflowuimodule.view.ZAPW101Form"
+                            visible="{= ${context>/WorkflowType} === 'pv01' }" />
+                        </VBox>
                         <!-- Nested Form (pc01) -->
                         <VBox class="sapUiResponsiveMargin">
                         <mvc:XMLView
                             id="nestedspc01"
                             viewName="apmgtnsp.workflowuimodule.view.ZAPW102Form"
                             visible="{= ${context>/WorkflowType} === 'pc01' }" />
+                        </VBox>
+                        <!-- Nested Form (av01) -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <mvc:XMLView
+                            id="nestedsav01"
+                            viewName="apmgtnsp.workflowuimodule.view.ZAPW103Form"
+                            visible="{= ${context>/WorkflowType} === 'av01' }" />
+                        </VBox>
+                        <!-- Nested Form (av02) -->
+                        <VBox class="sapUiResponsiveMargin">
+                        <mvc:XMLView
+                            id="nestedsav02"
+                            viewName="apmgtnsp.workflowuimodule.view.ZAPW104Form"
+                            visible="{= ${context>/WorkflowType} === 'av02' }" />
                         </VBox>
 
                         <!-- Attachments -->
