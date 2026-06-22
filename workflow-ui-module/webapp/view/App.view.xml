@@ -39,7 +39,7 @@
                                 <l:Grid defaultSpan="XL6 L6 M6 S12" vSpacing="0" hSpacing="2" class="sapUiMediumPadding">
                                     <VBox class="sapUiSmallMarginBottom">
                                         <Text text="Request Number" class="labelGrey" />
-                                        <Text text="{context>/RequestNo}" class="valueBlue" />
+                                        <Text text="{= ${context>/WorkflowType} === 'av02' ? ${context>/RequestNo} + '_CLR' : ${context>/RequestNo} }" class="valueBlue" />
                                     </VBox>
                                     <VBox class="sapUiSmallMarginBottom">
                                         <Text text="Request Status" class="labelGrey" />

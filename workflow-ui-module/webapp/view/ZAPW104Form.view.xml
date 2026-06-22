@@ -16,7 +16,7 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://person-placeholder"
+                            <core:Icon src="sap-icon://employee"
                                 color="{= ${context>/Approver1Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
@@ -40,7 +40,7 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://search"
+                            <core:Icon src="sap-icon://approvals"
                                 color="{= ${context>/Approver2Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
@@ -64,7 +64,7 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://approvals"
+                            <core:Icon src="sap-icon://clear-all"
                                 color="{= ${context>/Approver3Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
@@ -86,12 +86,11 @@
                         </VBox>
                     </HBox>
 
-                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                    <HBox alignItems="Start">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://building"
+                            <core:Icon src="sap-icon://inspect"
                                 color="{= ${context>/Approver4Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="ผู้ตรวจสอบ" class="labelGrey" />
