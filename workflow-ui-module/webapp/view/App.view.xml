@@ -108,12 +108,15 @@
                                 </Toolbar>
                             </headerToolbar>
                             <content>
-                                <List id="fileList" items="{view>/Attachments}" noDataText="ไม่มีเอกสารแนบ" showSeparators="Inner">
+                                <List id="fileList"
+                                      items="{view>/Attachments}"
+                                      noDataText="ไม่มีเอกสารแนบ"
+                                      mode="None">
                                     <items>
-                                        <CustomListItem>
+                                        <CustomListItem type="Active">
                                             <HBox alignItems="Center" class="sapUiSmallPadding">
-                                                <core:Icon src="{view>fileIcon}" size="1rem" class="sapUiSmallMarginEnd" />
-                                                <Link text="{view>fileName}" class="valueBlue" target="_blank" href="{view>fileUrl}" />
+                                                <core:Icon src="{view>fileIcon}" class="sapUiSmallMarginEnd" />
+                                                <Text text="{view>fileName}" class="valueBlue" />
                                             </HBox>
                                         </CustomListItem>
                                     </items>
@@ -121,6 +124,7 @@
                             </content>
                         </Panel>
                         </VBox>
+
                         <VBox height="1rem" />
 
                         <!-- Signature + Comment (แสดงเมื่อยังไม่ approve/reject) -->
