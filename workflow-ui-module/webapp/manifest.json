@@ -163,6 +163,7 @@
         "IsAllApproved":    { "type": "boolean", "title": "Is All Approved"   },
         "IsReject":         { "type": "boolean", "title": "Is Reject"         },
         "IsClose":          { "type": "boolean", "title": "Is Close"          },
+        "IsTestMode":         { "type": "boolean", "title": "Test Mode"       },
 
         "CreatedBy":        { "type": "string", "title": "Created By"         },
         "CreatedPosition":  { "type": "string", "title": "Created Position"   },

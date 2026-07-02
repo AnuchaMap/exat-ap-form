@@ -404,17 +404,24 @@ sap.ui.define(
           error: function (jqXHR) {
             oView.setBusy(false);
             jQuery.sap.log.error("API Token Error:", jqXHR);
-            MessageToast.show("Error API แต่ระบบทำการจำลอง (Mock) Token ให้ชั่วคราว");
+            var bIsTestMode = oContextModel && oContextModel.getProperty("/IsTestMode") === true;
+            if (bIsTestMode) {
+              MessageToast.show("Error API แต่ระบบทำการจำลอง (Mock) Token ให้ชั่วคราว");
 
-            if (oContextModel) {
-              oContextModel.setProperty("/SignatureUsername", sUsername);
-              oContextModel.setProperty(
-                "/SignatureToken",
-                "MOCK_TOKEN_" + Math.random().toString(36).substr(2, 9).toUpperCase(),
+              if (oContextModel) {
+                oContextModel.setProperty("/SignatureUsername", sUsername);
+                oContextModel.setProperty(
+                  "/SignatureToken",
+                  "MOCK_TOKEN_" + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                );
+                oContextModel.refresh(true);
+              }
+              this._updateInboxActions();
+            } else {
+              MessageToast.show(
+                "ไม่สามารถรับ Token ได้: เกิดข้อผิดพลาดจาก API กรุณาลองใหม่อีกครั้ง",
               );
-              oContextModel.refresh(true);
             }
-            this._updateInboxActions();
           }.bind(this),
         });
       },

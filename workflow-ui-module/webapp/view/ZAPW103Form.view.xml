@@ -40,7 +40,7 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://inspect"
+                            <core:Icon src="sap-icon://search"
                                 color="{= ${context>/Approver2Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
@@ -160,7 +160,7 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://audit"
+                            <core:Icon src="sap-icon://inspect"
                                 color="{= ${context>/Approver7Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
