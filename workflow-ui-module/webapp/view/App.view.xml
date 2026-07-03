@@ -99,30 +99,31 @@
                         </VBox>
 
                         <!-- Attachments -->
-                        <VBox class="sapUiResponsiveMargin">
-                        <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
-                            <headerToolbar>
-                                <Toolbar height="2rem">
-                                    <core:Icon src="sap-icon://attachment" class="sapUiSmallMarginEnd" />
-                                    <Title text="เอกสารแนบทั้งหมด" class="panelTitle" />
-                                </Toolbar>
-                            </headerToolbar>
-                            <content>
-                                <List id="fileList"
-                                      items="{view>/Attachments}"
-                                      noDataText="ไม่มีเอกสารแนบ"
-                                      mode="None">
-                                    <items>
-                                        <CustomListItem type="Active">
-                                            <HBox alignItems="Center" class="sapUiSmallPadding">
-                                                <core:Icon src="{view>fileIcon}" class="sapUiSmallMarginEnd" />
-                                                <Text text="{view>fileName}" class="valueBlue" />
-                                            </HBox>
-                                        </CustomListItem>
-                                    </items>
-                                </List>
-                            </content>
-                        </Panel>
+                        <VBox class="sapUiResponsiveMargin"
+                              visible="{= ${context>/WorkflowType} !== 'pv01' }">
+                            <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
+                                <headerToolbar>
+                                    <Toolbar height="2rem">
+                                        <core:Icon src="sap-icon://attachment" class="sapUiSmallMarginEnd" />
+                                        <Title text="เอกสารแนบทั้งหมด" class="panelTitle" />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <List id="fileList"
+                                          items="{view>/Attachments}"
+                                          noDataText="ไม่มีเอกสารแนบ"
+                                          mode="None">
+                                        <items>
+                                            <CustomListItem type="Active">
+                                                <HBox alignItems="Center" class="sapUiSmallPadding">
+                                                    <core:Icon src="{view>fileIcon}" class="sapUiSmallMarginEnd" />
+                                                    <Text text="{view>fileName}" class="valueBlue" />
+                                                </HBox>
+                                            </CustomListItem>
+                                        </items>
+                                    </List>
+                                </content>
+                            </Panel>
                         </VBox>
 
                         <VBox height="1rem" />
