@@ -357,6 +357,75 @@ sap.ui.define(
         }
       },
 
+      // onLoginPress: function () {
+      //   var oView = this.getView();
+      //   var sUsername = oView.byId("usernameInput").getValue();
+      //   var sPassword = oView.byId("passwordInput").getValue();
+
+      //   if (!sUsername || !sPassword) {
+      //     MessageToast.show("กรุณากรอก Username และ Password ให้ครบถ้วน");
+      //     return;
+      //   }
+
+      //   var oContextModel = oView.getModel("context");
+      //   oView.setBusy(true);
+
+      //   var oConfig = this.getOwnerComponent().getManifestEntry("/sap.ui5/config");
+
+      //   jQuery.ajax({
+      //     url: oConfig.tokenApiUrl,
+      //     method: "POST",
+      //     contentType: "application/json",
+      //     data: JSON.stringify({ username: sUsername, password: sPassword, ref_1: "", ref_2: "" }),
+      //     success: function (oData) {
+      //       oView.setBusy(false);
+      //       var oSigner =
+      //         oData &&
+      //         oData.result &&
+      //         oData.result.details &&
+      //         oData.result.details.signer &&
+      //         oData.result.details.signer[0];
+
+      //       if (oSigner && (oSigner.status === "S" || oSigner.statusCode === "200")) {
+      //         if (oContextModel) {
+      //           oContextModel.setProperty("/SignatureUsername", sUsername);
+      //           oContextModel.setProperty("/SignatureToken", oSigner.token);
+      //           oContextModel.refresh(true);
+      //         }
+      //         this._updateInboxActions();
+      //         MessageToast.show("เข้าสู่ระบบสำเร็จ! ได้รับ Token เรียบร้อยแล้ว");
+      //       } else {
+      //         MessageToast.show(
+      //           "ไม่สามารถรับ Token ได้: " +
+      //           ((oSigner && oSigner.message) || "ข้อมูลไม่ถูกต้อง"),
+      //         );
+      //       }
+      //     }.bind(this),
+      //     error: function (jqXHR) {
+      //       oView.setBusy(false);
+      //       jQuery.sap.log.error("API Token Error:", jqXHR);
+      //       var bIsTestMode = oContextModel && oContextModel.getProperty("/IsTestMode") === true;
+      //       if (bIsTestMode) {
+      //         MessageToast.show("Error API แต่ระบบทำการจำลอง (Mock) Token ให้ชั่วคราว");
+
+      //         if (oContextModel) {
+      //           oContextModel.setProperty("/SignatureUsername", sUsername);
+      //           oContextModel.setProperty(
+      //             "/SignatureToken",
+      //             "MOCK_TOKEN_" + Math.random().toString(36).substr(2, 9).toUpperCase(),
+      //           );
+      //           oContextModel.refresh(true);
+      //         }
+      //         this._updateInboxActions();
+      //       } else {
+      //         MessageToast.show(
+      //           "ไม่สามารถรับ Token ได้: เกิดข้อผิดพลาดจาก API กรุณาลองใหม่อีกครั้ง",
+      //         );
+      //       }
+      //     }.bind(this),
+      //   });
+      // },
+
       onLoginPress: function () {
         var oView = this.getView();
         var sUsername = oView.byId("usernameInput").getValue();
@@ -366,12 +435,19 @@ sap.ui.define(
           MessageToast.show("กรุณากรอก Username และ Password ให้ครบถ้วน");
           return;
         }
+      
+        this._iTokenRetryCount = 0;
+        this._callTokenApi(sUsername, sPassword);
+      },
 
+      // ─── Token API Call ───────────────────────────────────────────────────
+      _callTokenApi: function (sUsername, sPassword) {
+        var oView = this.getView();
         var oContextModel = oView.getModel("context");
         oView.setBusy(true);
-
+      
         var oConfig = this.getOwnerComponent().getManifestEntry("/sap.ui5/config");
-
+      
         jQuery.ajax({
           url: oConfig.tokenApiUrl,
           method: "POST",
@@ -385,7 +461,7 @@ sap.ui.define(
               oData.result.details &&
               oData.result.details.signer &&
               oData.result.details.signer[0];
-
+          
             if (oSigner && (oSigner.status === "S" || oSigner.statusCode === "200")) {
               if (oContextModel) {
                 oContextModel.setProperty("/SignatureUsername", sUsername);
@@ -395,35 +471,53 @@ sap.ui.define(
               this._updateInboxActions();
               MessageToast.show("เข้าสู่ระบบสำเร็จ! ได้รับ Token เรียบร้อยแล้ว");
             } else {
-              MessageToast.show(
-                "ไม่สามารถรับ Token ได้: " +
-                ((oSigner && oSigner.message) || "ข้อมูลไม่ถูกต้อง"),
-              );
+              // ได้รับ response แต่ signer ไม่สำเร็จ ให้ retry เช่นกัน
+              this._retryTokenLogin(sUsername, sPassword,
+                "ไม่สามารถรับ Token ได้: " + ((oSigner && oSigner.message) || "ข้อมูลไม่ถูกต้อง"));
             }
           }.bind(this),
           error: function (jqXHR) {
             oView.setBusy(false);
             jQuery.sap.log.error("API Token Error:", jqXHR);
-            var bIsTestMode = oContextModel && oContextModel.getProperty("/IsTestMode") === true;
-            if (bIsTestMode) {
-              MessageToast.show("Error API แต่ระบบทำการจำลอง (Mock) Token ให้ชั่วคราว");
-
-              if (oContextModel) {
-                oContextModel.setProperty("/SignatureUsername", sUsername);
-                oContextModel.setProperty(
-                  "/SignatureToken",
-                  "MOCK_TOKEN_" + Math.random().toString(36).substr(2, 9).toUpperCase(),
-                );
-                oContextModel.refresh(true);
-              }
-              this._updateInboxActions();
-            } else {
-              MessageToast.show(
-                "ไม่สามารถรับ Token ได้: เกิดข้อผิดพลาดจาก API กรุณาลองใหม่อีกครั้ง",
-              );
-            }
+            this._retryTokenLogin(sUsername, sPassword, "เกิดข้อผิดพลาดจากเครือข่าย API");
           }.bind(this),
         });
+      },
+      
+      _retryTokenLogin: function (sUsername, sPassword, sReason) {
+        var oView = this.getView();
+        var oContextModel = oView.getModel("context");
+      
+        if (this._iTokenRetryCount < 5) {
+          this._iTokenRetryCount++;
+          MessageToast.show(
+            "กำลังลองรับ Token ใหม่... (ครั้งที่ " + this._iTokenRetryCount + "/5)"
+          );
+          setTimeout(function () {
+            this._callTokenApi(sUsername, sPassword);
+          }.bind(this), 2000);
+        } else {
+          // ลองครบ 5 ครั้งแล้วไม่สำเร็จ
+          var bIsTestMode = oContextModel && oContextModel.getProperty("/IsTestMode") === true;
+        
+          if (bIsTestMode) {
+            MessageToast.show("Error API ครบ 5 ครั้ง แต่ระบบทำการจำลอง (Mock) Token ให้ชั่วคราว");
+          
+            if (oContextModel) {
+              oContextModel.setProperty("/SignatureUsername", sUsername);
+              oContextModel.setProperty(
+                "/SignatureToken",
+                "MOCK_TOKEN_" + Math.random().toString(36).substr(2, 9).toUpperCase(),
+              );
+              oContextModel.refresh(true);
+            }
+            this._updateInboxActions();
+          } else {
+            MessageToast.show(
+              "ไม่สามารถรับ Token ได้: เกิดข้อผิดพลาดจาก API ครบ 5 ครั้ง กรุณาลองใหม่อีกครั้ง",
+            );
+          }
+        }
       },
 
       // ─── Inbox Actions ────────────────────────────────────────────────────
