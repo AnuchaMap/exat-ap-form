@@ -129,7 +129,7 @@
                         <VBox height="1rem" />
 
                         <!-- Signature + Comment (แสดงเมื่อยังไม่ approve/reject) -->
-                        <VBox visible="{= !${context>/IsAllApproved} &amp;&amp; !${context>/IsReject} }">
+                        <!-- <VBox visible="{= !${context>/IsAllApproved} &amp;&amp; !${context>/IsReject} }">
                             <l:Grid defaultSpan="XL6 L6 M6 S12" vSpacing="0" hSpacing="1" width="100%" class="sapUiTinyMarginBottom sapUiNoContentPadding">
 
                                 <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel" height="100%">
@@ -197,6 +197,31 @@
                                 </Panel>
 
                             </l:Grid>
+                        </VBox> -->
+
+                        <VBox width="100%" class="sapUiResponsiveMargin">
+                            <l:Grid defaultSpan="XL6 L6 M6 S12" vSpacing="0" class="sapUiNoContentPadding equalPanelHeight collapsibleHeaderPanel">
+
+                                <Panel visible="{= !${context>/IsAllApproved} &amp;&amp; !${context>/IsReject} }" headerText="Approver Comment" expandable="false" expanded="true" class="contentSectionPanel signaturePanel">
+                                    <layoutData>
+                                        <l:GridData span="XL12 L12 M12 S12" />
+                                    </layoutData>
+                                    <headerToolbar>
+                                        <Toolbar height="2rem">
+                                            <core:Icon src="sap-icon://comment" class="sapUiSmallMarginEnd" />
+                                            <Title text="Approver Comment" class="panelTitle" />
+                                        </Toolbar>
+                                    </headerToolbar>
+                                    <content>
+                                        <VBox class="sapUiMediumPadding">
+                                            <Label text="Comment" class="customLabel" />
+                                            <TextArea width="100%" rows="7" placeholder="ใส่ความคิดเห็นหรือหมายเหตุเพิ่มเติมที่นี่..." id="approverComment" value="{context>/ApproverComment}" valueLiveUpdate="true" liveChange=".onCommentLiveChange" />
+                                        </VBox>
+                                    </content>
+                                </Panel>
+                               
+                            </l:Grid>
+
                         </VBox>
 
                         <!-- Comment (แสดงเมื่อ approve/reject แล้ว) -->

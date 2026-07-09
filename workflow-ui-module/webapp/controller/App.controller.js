@@ -26,7 +26,9 @@ sap.ui.define(
         });
         this.getView().setModel(oViewModel, "view");
 
-        this.onLoginChange();
+        // ปิดใช้งาน Digital Signature แล้ว (ไม่ต้องลงนามอีกต่อไป)
+        // คอมเมนต์เก็บไว้เผื่อต้องกลับมาใช้งานใหม่ในอนาคต
+        // this.onLoginChange();
 
         this._iPdfRetryCount = 0;
         this._iDmsRetryCount = 0;
@@ -341,7 +343,10 @@ sap.ui.define(
         this.getView().getModel("view").setProperty("/iframeContent", sIframeHtml);
       },
 
-      // ─── Login ────────────────────────────────────────────────────────────
+      // ─── Login (Digital Signature) ────────────────────────────────────────
+      // ปิดใช้งาน Digital Signature แล้ว (ไม่ต้องลงนามอีกต่อไป)
+      // คอมเมนต์ฟังก์ชันทั้งหมดเก็บไว้เผื่อต้องกลับมาใช้งานใหม่ในอนาคต
+      /*
       onLoginChange: function () {
         var oView = this.getView();
         var sUsername = oView.byId("usernameInput")
@@ -357,75 +362,6 @@ sap.ui.define(
         }
       },
 
-      // onLoginPress: function () {
-      //   var oView = this.getView();
-      //   var sUsername = oView.byId("usernameInput").getValue();
-      //   var sPassword = oView.byId("passwordInput").getValue();
-
-      //   if (!sUsername || !sPassword) {
-      //     MessageToast.show("กรุณากรอก Username และ Password ให้ครบถ้วน");
-      //     return;
-      //   }
-
-      //   var oContextModel = oView.getModel("context");
-      //   oView.setBusy(true);
-
-      //   var oConfig = this.getOwnerComponent().getManifestEntry("/sap.ui5/config");
-
-      //   jQuery.ajax({
-      //     url: oConfig.tokenApiUrl,
-      //     method: "POST",
-      //     contentType: "application/json",
-      //     data: JSON.stringify({ username: sUsername, password: sPassword, ref_1: "", ref_2: "" }),
-      //     success: function (oData) {
-      //       oView.setBusy(false);
-      //       var oSigner =
-      //         oData &&
-      //         oData.result &&
-      //         oData.result.details &&
-      //         oData.result.details.signer &&
-      //         oData.result.details.signer[0];
-
-      //       if (oSigner && (oSigner.status === "S" || oSigner.statusCode === "200")) {
-      //         if (oContextModel) {
-      //           oContextModel.setProperty("/SignatureUsername", sUsername);
-      //           oContextModel.setProperty("/SignatureToken", oSigner.token);
-      //           oContextModel.refresh(true);
-      //         }
-      //         this._updateInboxActions();
-      //         MessageToast.show("เข้าสู่ระบบสำเร็จ! ได้รับ Token เรียบร้อยแล้ว");
-      //       } else {
-      //         MessageToast.show(
-      //           "ไม่สามารถรับ Token ได้: " +
-      //           ((oSigner && oSigner.message) || "ข้อมูลไม่ถูกต้อง"),
-      //         );
-      //       }
-      //     }.bind(this),
-      //     error: function (jqXHR) {
-      //       oView.setBusy(false);
-      //       jQuery.sap.log.error("API Token Error:", jqXHR);
-      //       var bIsTestMode = oContextModel && oContextModel.getProperty("/IsTestMode") === true;
-      //       if (bIsTestMode) {
-      //         MessageToast.show("Error API แต่ระบบทำการจำลอง (Mock) Token ให้ชั่วคราว");
-
-      //         if (oContextModel) {
-      //           oContextModel.setProperty("/SignatureUsername", sUsername);
-      //           oContextModel.setProperty(
-      //             "/SignatureToken",
-      //             "MOCK_TOKEN_" + Math.random().toString(36).substr(2, 9).toUpperCase(),
-      //           );
-      //           oContextModel.refresh(true);
-      //         }
-      //         this._updateInboxActions();
-      //       } else {
-      //         MessageToast.show(
-      //           "ไม่สามารถรับ Token ได้: เกิดข้อผิดพลาดจาก API กรุณาลองใหม่อีกครั้ง",
-      //         );
-      //       }
-      //     }.bind(this),
-      //   });
-      // },
-
       onLoginPress: function () {
         var oView = this.getView();
         var sUsername = oView.byId("usernameInput").getValue();
@@ -435,7 +371,7 @@ sap.ui.define(
           MessageToast.show("กรุณากรอก Username และ Password ให้ครบถ้วน");
           return;
         }
-      
+
         this._iTokenRetryCount = 0;
         this._callTokenApi(sUsername, sPassword);
       },
@@ -445,9 +381,9 @@ sap.ui.define(
         var oView = this.getView();
         var oContextModel = oView.getModel("context");
         oView.setBusy(true);
-      
+
         var oConfig = this.getOwnerComponent().getManifestEntry("/sap.ui5/config");
-      
+
         jQuery.ajax({
           url: oConfig.tokenApiUrl,
           method: "POST",
@@ -461,7 +397,7 @@ sap.ui.define(
               oData.result.details &&
               oData.result.details.signer &&
               oData.result.details.signer[0];
-          
+
             if (oSigner && (oSigner.status === "S" || oSigner.statusCode === "200")) {
               if (oContextModel) {
                 oContextModel.setProperty("/SignatureUsername", sUsername);
@@ -471,7 +407,6 @@ sap.ui.define(
               this._updateInboxActions();
               MessageToast.show("เข้าสู่ระบบสำเร็จ! ได้รับ Token เรียบร้อยแล้ว");
             } else {
-              // ได้รับ response แต่ signer ไม่สำเร็จ ให้ retry เช่นกัน
               this._retryTokenLogin(sUsername, sPassword,
                 "ไม่สามารถรับ Token ได้: " + ((oSigner && oSigner.message) || "ข้อมูลไม่ถูกต้อง"));
             }
@@ -483,11 +418,11 @@ sap.ui.define(
           }.bind(this),
         });
       },
-      
+
       _retryTokenLogin: function (sUsername, sPassword, sReason) {
         var oView = this.getView();
         var oContextModel = oView.getModel("context");
-      
+
         if (this._iTokenRetryCount < 5) {
           this._iTokenRetryCount++;
           MessageToast.show(
@@ -497,12 +432,11 @@ sap.ui.define(
             this._callTokenApi(sUsername, sPassword);
           }.bind(this), 2000);
         } else {
-          // ลองครบ 5 ครั้งแล้วไม่สำเร็จ
           var bIsTestMode = oContextModel && oContextModel.getProperty("/IsTestMode") === true;
-        
+
           if (bIsTestMode) {
             MessageToast.show("Error API ครบ 5 ครั้ง แต่ระบบทำการจำลอง (Mock) Token ให้ชั่วคราว");
-          
+
             if (oContextModel) {
               oContextModel.setProperty("/SignatureUsername", sUsername);
               oContextModel.setProperty(
@@ -519,6 +453,7 @@ sap.ui.define(
           }
         }
       },
+      */
 
       // ─── Inbox Actions ────────────────────────────────────────────────────
       _updateInboxActions: function () {
@@ -534,12 +469,25 @@ sap.ui.define(
           this.getView().getModel("context") ||
           this.getOwnerComponent().getModel("context");
 
-        var sToken = oContextModel.getProperty("/SignatureToken") || "";
         var bIsAllApproved = oContextModel.getProperty("/IsAllApproved");
         var bIsReject = oContextModel.getProperty("/IsReject");
         var bIsClose = oContextModel.getProperty("/IsClose");
 
+        // เดิม: ต้องมี Signature Token ก่อนถึงจะเปิดปุ่ม Approve/Reject
+        // ปิดใช้งาน Digital Signature แล้ว คอมเมนต์เก็บไว้เผื่อต้องกลับมาใช้งานใหม่
+        /*
+        var sToken = oContextModel.getProperty("/SignatureToken") || "";
         if ((sToken.trim().length > 0 && !bIsAllApproved && !bIsReject) || bIsClose) {
+          oInboxAPI.enableAction("approve");
+          oInboxAPI.enableAction("reject");
+        } else {
+          oInboxAPI.disableAction("approve");
+          oInboxAPI.disableAction("reject");
+        }
+        */
+
+        // ใหม่: ไม่ต้องเช็ค Signature Token แล้ว เปิดปุ่มตามสถานะ Pending/Close อย่างเดียว
+        if ((!bIsAllApproved && !bIsReject) || bIsClose) {
           oInboxAPI.enableAction("approve");
           oInboxAPI.enableAction("reject");
         } else {

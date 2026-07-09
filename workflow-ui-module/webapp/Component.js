@@ -4,8 +4,9 @@ sap.ui.define(
     "sap/ui/Device",
     "apmgtnsp/workflowuimodule/model/models",
     "sap/m/MessageBox",
+    "sap/ui/core/BusyIndicator",
   ],
-  function (UIComponent, Device, models, MessageBox) {
+  function (UIComponent, Device, models, MessageBox, BusyIndicator) {
     "use strict";
 
     return UIComponent.extend("apmgtnsp.workflowuimodule.Component", {
@@ -86,11 +87,26 @@ sap.ui.define(
 
       completeTask: function (approvalStatus, outcomeId) {
         this.getModel("context").setProperty("/approved", approvalStatus);
-        this._patchTaskInstance(outcomeId);
+        // Log action initiation and current context for debugging
+        try {
+          var dbgContext = jQuery.extend(true, {}, this.getModel("context").getData());
+          jQuery.sap.log.info("completeTask called. approvalStatus=" + approvalStatus + ", outcomeId=" + outcomeId + ", context=" + JSON.stringify(dbgContext));
+        } catch (e) {
+          jQuery.sap.log.error("Failed to stringify context for debug", e);
+        }
+
+        this.getInboxAPI().disableAction("approve");
+        this.getInboxAPI().disableAction("reject");
+        BusyIndicator.show(0);
+        this._patchTaskInstance(outcomeId).always(function () {
+          BusyIndicator.hide();
+        });
       },
 
       _patchTaskInstance: function (outcomeId) {
-        const context = this.getModel("context").getData();
+        var context = jQuery.extend(true, {}, this.getModel("context").getData());
+        var deferred = jQuery.Deferred();
+        var hasCompleted = false;
 
         // ✅ เปลี่ยนจาก RequestStatus มาใช้ IsAllApproved / IsReject
         var bIsAllApproved = context.IsAllApproved;
@@ -107,34 +123,97 @@ sap.ui.define(
           context.IsClose = false;
         }
 
-        jQuery.ajax({
-          url: this._getTaskInstancesBaseURL(),
-          method: "PATCH",
-          contentType: "application/json",
-          async: true,
-          data: JSON.stringify({
-            status: "COMPLETED",
-            context: { ...context, comment: context.comment || "" },
-            decision: outcomeId,
-          }),
-          headers: { "X-CSRF-Token": this._fetchToken() },
-        }).done(() => {
-          this._refreshTaskList();
-        });
+        // Ensure required workflow output fields exist even if signature UI is disabled
+        context.ApproverComment   = context.ApproverComment   || "";
+        context.SignatureUsername = context.SignatureUsername || "";
+        context.SignaturePassword = context.SignaturePassword || "";
+        context.SignatureToken    = context.SignatureToken    || "";
+
+        var payload = {
+          status: "COMPLETED",
+          context: { ...context, comment: context.comment || "" },
+          decision: outcomeId,
+        };
+
+        // Log outgoing request details (URL + payload). Token is logged masked later.
+        try {
+          jQuery.sap.log.info("Sending PATCH to " + this._getTaskInstancesBaseURL() + " payload=" + JSON.stringify(payload));
+        } catch (e) {
+          jQuery.sap.log.error("Failed to stringify payload for debug", e);
+        }
+
+        this._fetchToken()
+          .then(function (token) {
+            var masked = token ? ("" + token).substring(0, 6) + "..." : "(none)";
+            jQuery.sap.log.info("Fetched X-CSRF-Token: " + masked);
+            return jQuery.ajax({
+              url: this._getTaskInstancesBaseURL(),
+              method: "PATCH",
+              contentType: "application/json",
+              async: true,
+              data: JSON.stringify(payload),
+              headers: { "X-CSRF-Token": token || "" },
+            });
+          }.bind(this))
+          .done(function () {
+            hasCompleted = true;
+            this._refreshTaskList();
+            deferred.resolve();
+          }.bind(this))
+          .fail(function (jqXHR) {
+            hasCompleted = true;
+            jQuery.sap.log.error("Task completion failed", jqXHR);
+            MessageBox.error("ไม่สามารถส่งผลการอนุมัติได้ กรุณาลองใหม่อีกครั้ง");
+            this._restoreInboxActions();
+            deferred.reject(jqXHR);
+          }.bind(this));
+
+        window.setTimeout(function () {
+          if (!hasCompleted) {
+            jQuery.sap.log.error("Task completion timed out");
+            MessageBox.error("คำขออนุมัติใช้เวลานานเกินไป กรุณาลองใหม่อีกครั้ง");
+            this._restoreInboxActions();
+            deferred.reject(new Error("timeout"));
+          }
+        }.bind(this), 15000);
+
+        return deferred.promise();
+      },
+
+      _restoreInboxActions: function () {
+        if (!this.getInboxAPI()) {
+          return;
+        }
+
+        this.getInboxAPI().enableAction("approve");
+        this.getInboxAPI().enableAction("reject");
       },
 
       _fetchToken: function () {
-        var fetchedToken;
+        var deferred = jQuery.Deferred();
+
         jQuery.ajax({
           url: this._getWorkflowRuntimeBaseURL() + "/xsrf-token",
           method: "GET",
-          async: false,
+          async: true,
           headers: { "X-CSRF-Token": "Fetch" },
-          success: function (result, xhr, data) {
-            fetchedToken = data.getResponseHeader("X-CSRF-Token");
+          success: function (data, textStatus, jqXHR) {
+            var fetchedToken = jqXHR.getResponseHeader("X-CSRF-Token") || "";
+            try {
+              var masked = fetchedToken ? ("" + fetchedToken).substring(0, 6) + "..." : "(none)";
+              jQuery.sap.log.info("_fetchToken success, token=" + masked);
+            } catch (e) {
+              jQuery.sap.log.error("_fetchToken: failed to log token", e);
+            }
+            deferred.resolve(fetchedToken);
+          },
+          error: function (jqXHR) {
+            jQuery.sap.log.error("Failed to fetch workflow CSRF token", jqXHR);
+            deferred.reject(jqXHR);
           },
         });
-        return fetchedToken;
+
+        return deferred.promise();
       },
 
       _refreshTaskList: function () {
