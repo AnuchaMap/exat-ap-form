@@ -15,17 +15,19 @@
                         <VBox height="1rem" />
 
                         <!-- Workflow Description -->
+
                         <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
                             <content>
-                                <VBox class="sapUiMediumPadding">
+                                   <VBox class="sapUiMediumPadding" alignItems="Left" width="100%">
                                     <Title text="{context>/WorkflowDesc}"
                                            level="H5"
                                            titleStyle="H5"
-                                           wrapping="true" />
+                                           wrapping="true"
+                                           class="panelTitle sapUiSmallMarginBegin"/>
                                 </VBox>
                             </content>
                         </Panel>
-
+                   
                         <!-- Header Data -->
                         <VBox class="sapUiResponsiveMargin">
                         <Panel expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
@@ -200,9 +202,7 @@
                         </VBox> -->
 
                         <VBox width="100%" class="sapUiResponsiveMargin">
-                            <l:Grid defaultSpan="XL6 L6 M6 S12" vSpacing="0" class="sapUiNoContentPadding equalPanelHeight collapsibleHeaderPanel">
-
-                                <Panel visible="{= !${context>/IsAllApproved} &amp;&amp; !${context>/IsReject} }" headerText="Approver Comment" expandable="false" expanded="true" class="contentSectionPanel signaturePanel">
+                                <Panel visible="{= !${context>/IsAllApproved} &amp;&amp; !${context>/IsReject} }" headerText="Approver Comment" expandable="false" expanded="true" class="contentSectionPanel signaturePanel sapUiTinyMarginBottom">
                                     <layoutData>
                                         <l:GridData span="XL12 L12 M12 S12" />
                                     </layoutData>
@@ -214,13 +214,10 @@
                                     </headerToolbar>
                                     <content>
                                         <VBox class="sapUiMediumPadding">
-                                            <Label text="Comment" class="customLabel" />
                                             <TextArea width="100%" rows="7" placeholder="ใส่ความคิดเห็นหรือหมายเหตุเพิ่มเติมที่นี่..." id="approverComment" value="{context>/ApproverComment}" valueLiveUpdate="true" liveChange=".onCommentLiveChange" />
                                         </VBox>
                                     </content>
                                 </Panel>
-                               
-                            </l:Grid>
 
                         </VBox>
 
