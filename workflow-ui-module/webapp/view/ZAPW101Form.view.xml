@@ -84,8 +84,7 @@
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
                             <core:Icon src="sap-icon://approvals"
                                 color="{= ${context>/Approver4Name} ? '#27500A' : '#888780' }"
-                                size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                                size="1.2rem" />     
                         </VBox>
                         <VBox>
                             <Text text="ผู้อนุมัติ" class="labelGrey" />

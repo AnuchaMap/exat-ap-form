@@ -13,16 +13,33 @@
             </headerToolbar>
             <content>
                 <VBox class="sapUiMediumPadding">
-
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
                             <core:Icon src="sap-icon://employee"
-                                color="{= ${context>/Approver1Name} ? '#27500A' : '#888780' }"
+                                color="{= ${context>/CreatedBy} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="ผู้ขอเบิก" class="labelGrey" />
+                            <Text text="{context>/CreatedBy}" class="valueBlue" />
+                            <ObjectStatus
+                                text="ดำเนินการแล้ว"
+                                icon="sap-icon://accept"
+                                state="Success" />
+                
+                        </VBox>
+                    </HBox>                  
+
+                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                        <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
+                            <core:Icon src="sap-icon://search"
+                                color="{= ${context>/Approver1Name} ? '#27500A' : '#888780' }"
+                                size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
+                        </VBox>
+                        <VBox>
+                            <Text text="ผู้ตรวจสอบ" class="labelGrey" />
                             <Text text="{context>/Approver1Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver1Comment} ? 'Comment: ' + ${context>/Approver1Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -40,13 +57,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://search"
+                            <core:Icon src="sap-icon://approvals"
                                 color="{= ${context>/Approver2Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้ตรวจสอบ" class="labelGrey" />
+                            <Text text="ผู้อนุมัติ Division" class="labelGrey" />
                             <Text text="{context>/Approver2Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver2Comment} ? 'Comment: ' + ${context>/Approver2Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -64,13 +81,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://approvals"
+                            <core:Icon src="sap-icon://building"
                                 color="{= ${context>/Approver3Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้อนุมัติ" class="labelGrey" />
+                            <Text text="ผู้อนุมัติ Deputy" class="labelGrey" />
                             <Text text="{context>/Approver3Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver3Comment} ? 'Comment: ' + ${context>/Approver3Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -88,13 +105,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://building"
+                            <core:Icon src="sap-icon://lead"
                                 color="{= ${context>/Approver4Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้อนุมัติ" class="labelGrey" />
+                            <Text text="กองงบประมาณ Staff" class="labelGrey" />
                             <Text text="{context>/Approver4Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver4Comment} ? 'Comment: ' + ${context>/Approver4Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -112,13 +129,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://lead"
+                            <core:Icon src="sap-icon://request"
                                 color="{= ${context>/Approver5Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="กองงบประมาณ" class="labelGrey" />
+                            <Text text="กองงบประมาณ Manager" class="labelGrey" />
                             <Text text="{context>/Approver5Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver5Comment} ? 'Comment: ' + ${context>/Approver5Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -136,13 +153,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://request"
+                            <core:Icon src="sap-icon://inspect"
                                 color="{= ${context>/Approver6Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="กองงบประมาณ" class="labelGrey" />
+                            <Text text="แผนกตรวจจ่าย Staff" class="labelGrey" />
                             <Text text="{context>/Approver6Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver6Comment} ? 'Comment: ' + ${context>/Approver6Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -160,13 +177,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://inspect"
+                            <core:Icon src="sap-icon://money-bills"
                                 color="{= ${context>/Approver7Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้ตรวจสอบการจ่ายเงิน" class="labelGrey" />
+                            <Text text="แผนกตรวจจ่าย ห.ตจ." class="labelGrey" />
                             <Text text="{context>/Approver7Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver7Comment} ? 'Comment: ' + ${context>/Approver7Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -184,13 +201,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://money-bills"
+                            <core:Icon src="sap-icon://write-new-document"
                                 color="{= ${context>/Approver8Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้ตรวจสอบการจ่ายเงิน" class="labelGrey" />
+                            <Text text="อนุมัติการจ่ายเงิน ผอ.กกง." class="labelGrey" />
                             <Text text="{context>/Approver8Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver8Comment} ? 'Comment: ' + ${context>/Approver8Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -206,15 +223,14 @@
                         </VBox>
                     </HBox>
 
-                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                    <HBox alignItems="Start">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://write-new-document"
+                            <core:Icon src="sap-icon://money-bills"
                                 color="{= ${context>/Approver9Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้อนุมัติการจ่ายเงิน" class="labelGrey" />
+                            <Text text="กองการเงิน Staff" class="labelGrey" />
                             <Text text="{context>/Approver9Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver9Comment} ? 'Comment: ' + ${context>/Approver9Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
@@ -225,29 +241,6 @@
                                 state="Success" />
                             <ObjectStatus
                                 visible="{= !${context>/Approver9Name} }"
-                                text="รอดำเนินการ"
-                                state="None" />
-                        </VBox>
-                    </HBox>
-
-                    <HBox alignItems="Start">
-                        <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://money-bills"
-                                color="{= ${context>/Approver10Name} ? '#27500A' : '#888780' }"
-                                size="1.2rem" />
-                        </VBox>
-                        <VBox>
-                            <Text text="ผู้จ่ายเงิน" class="labelGrey" />
-                            <Text text="{context>/Approver10Name}" class="valueBlue" />
-                            <Text text="{= ${context>/Approver10Comment} ? 'Comment: ' + ${context>/Approver10Comment} : 'Comment: -' }" 
-                                class="labelGrey" />
-                            <ObjectStatus
-                                visible="{= !!${context>/Approver10Name} }"
-                                text="อนุมัติแล้ว"
-                                icon="sap-icon://accept"
-                                state="Success" />
-                            <ObjectStatus
-                                visible="{= !${context>/Approver10Name} }"
                                 text="รอดำเนินการ"
                                 state="None" />
                         </VBox>

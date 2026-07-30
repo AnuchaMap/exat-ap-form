@@ -19,7 +19,7 @@
                             <core:Icon src="sap-icon://person-placeholder"
                                 color="{= ${context>/CreatedBy} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="ผู้จัดทำ" class="labelGrey" />
@@ -37,7 +37,7 @@
                             <core:Icon src="sap-icon://person-placeholder"
                                 color="{= ${context>/Approver1Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="ผู้ขอเบิก" class="labelGrey" />
@@ -65,7 +65,7 @@
                             <core:Icon src="sap-icon://search"
                                 color="{= ${context>/Approver2Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="ผู้ตรวจสอบ" class="labelGrey" />
@@ -93,7 +93,7 @@
                             <core:Icon src="sap-icon://approvals"
                                 color="{= ${context>/Approver3Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
-                            <core:HTML content="&lt;div style='width:1.5px; height:32px; background: #888780; margin:4px auto;'&gt;&lt;/div&gt;" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="ผู้อนุมัติ" class="labelGrey" />
@@ -253,6 +253,7 @@
                             <core:Icon src="sap-icon://factory"
                                 color="{= ${context>/Approver9Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="แผนกบัญชีต้นทุน" class="labelGrey" />
@@ -276,6 +277,7 @@
                             <core:Icon src="sap-icon://money-bills"
                                 color="{= ${context>/Approver10Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
                             <Text text="กองการเงิน" class="labelGrey" />
@@ -299,6 +301,7 @@
                             <core:Icon src="sap-icon://money-bills"
                                 color="{= ${context>/Approver11Name} ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
+                            
                         </VBox>
                         <VBox>
                             <Text text="กองการเงิน" class="labelGrey" />
