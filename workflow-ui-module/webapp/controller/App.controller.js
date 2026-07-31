@@ -276,15 +276,41 @@ sap.ui.define(
           dataType: "json",
           success: function (oData) {
             if (oData && oData.success && oData.items && oData.items.length > 0) {
-              var sFileId = oData.items[0].id;
-              var sBase64Url = "https://sbpa_helper.cfapps.ap10.hana.ondemand.com/api/dms/file/" + sFileId + "/base64";
+              var aPreviewItems = oData.items.filter(function (oItem) {
+                return oItem && oItem.id;
+              });
 
-              fetch(sBase64Url)
-                .then(function (res) { return res.json(); })
-                .then(function (oFileData) {
+              if (aPreviewItems.length === 0) {
+                this._retryPdfPreview("ไม่พบไฟล์ใดๆ ภายในโฟลเดอร์สำหรับทำ Preview");
+                return;
+              }
+
+              var aBase64Requests = aPreviewItems.map(function (oItem, iIndex) {
+                var sFileId = oItem.id;
+                var sBase64Url = "https://sbpa_helper.cfapps.ap10.hana.ondemand.com/api/dms/file/" + sFileId + "/base64";
+
+                return fetch(sBase64Url)
+                  .then(function (res) { return res.json(); })
+                  .then(function (oFileData) {
+                    if (oFileData && oFileData.success && oFileData.base64Data) {
+                      return {
+                        fileName: oItem.name || ("เอกสาร " + (iIndex + 1)),
+                        base64: oFileData.base64Data,
+                      };
+                    }
+                    return null;
+                  });
+              }.bind(this));
+
+              Promise.all(aBase64Requests)
+                .then(function (aResults) {
                   oView.setBusy(false);
-                  if (oFileData.success && oFileData.base64Data) {
-                    this.loadPdf(oFileData.base64Data);
+                  var aValidDocs = aResults.filter(function (oDoc) {
+                    return oDoc && oDoc.base64;
+                  });
+
+                  if (aValidDocs.length > 0) {
+                    this.loadPdf(aValidDocs);
                   } else {
                     this._retryPdfPreview("ดึงข้อมูลรหัส Base64 ของไฟล์ไม่สำเร็จ");
                   }
@@ -322,24 +348,42 @@ sap.ui.define(
         }
       },
 
-      loadPdf: function (sBase64) {
-        var byteCharacters = window.atob(sBase64);
-        var byteArrays = [];
-        for (var offset = 0; offset < byteCharacters.length; offset += 512) {
-          var slice = byteCharacters.slice(offset, offset + 512);
-          var byteNumbers = new Array(slice.length);
-          for (var i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
+      loadPdf: function (aDocs) {
+        var aIframeHtml = [];
+
+        for (var iIndex = 0; iIndex < aDocs.length; iIndex++) {
+          var oDoc = aDocs[iIndex];
+          var sBase64 = oDoc && oDoc.base64;
+          var sFileName = oDoc && oDoc.fileName ? oDoc.fileName : ("เอกสาร " + (iIndex + 1));
+          var sSafeFileName = String(sFileName)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/\"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+
+          var byteCharacters = window.atob(sBase64);
+          var byteArrays = [];
+          for (var offset = 0; offset < byteCharacters.length; offset += 512) {
+            var slice = byteCharacters.slice(offset, offset + 512);
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+              byteNumbers[i] = slice.charCodeAt(i);
+            }
+            byteArrays.push(new Uint8Array(byteNumbers));
           }
-          byteArrays.push(new Uint8Array(byteNumbers));
+
+          var blob = new Blob(byteArrays, { type: "application/pdf" });
+          var blobUrl = URL.createObjectURL(blob);
+          aIframeHtml.push(
+            '<div style="margin-bottom: 16px;">' +
+              '<div style="font-weight: 600; margin-bottom: 6px; color: #0854a0;">' + sSafeFileName + '</div>' +
+              '<iframe src="' + blobUrl + '" width="100%" height="595px" style="border: none; border-radius: 4px; display: block; max-width: 100%;"></iframe>' +
+            '</div>'
+          );
         }
 
-        var blob = new Blob(byteArrays, { type: "application/pdf" });
-        var blobUrl = URL.createObjectURL(blob);
-        var sIframeHtml =
-          '<iframe src="' + blobUrl +
-          '" width="100%" height="595px" style="border: none; border-radius: 4px; display: block; max-width: 100%;"></iframe>';
-
+        var sIframeHtml = '<div style="display: flex; flex-direction: column; gap: 8px;">' + aIframeHtml.join("") + '</div>';
         this.getView().getModel("view").setProperty("/iframeContent", sIframeHtml);
       },
 
