@@ -95,6 +95,16 @@ sap.ui.define(
           jQuery.sap.log.error("Failed to stringify context for debug", e);
         }
 
+        // ✅ ZAPW102: Require Comment field when Reject is clicked
+        var oContextModel = this.getModel("context");
+        var sWorkflowType = oContextModel.getProperty("/WorkflowType");
+        var sApproverComment = (oContextModel.getProperty("/ApproverComment") || "").trim();
+
+        if (sWorkflowType === "pc01" && outcomeId === "reject" && sApproverComment.length === 0) {
+          MessageBox.warning("กรุณากรอก Comment ก่อนกด Reject");
+          return;
+        }
+
         this.getInboxAPI().disableAction("approve");
         this.getInboxAPI().disableAction("reject");
         BusyIndicator.show(0);
