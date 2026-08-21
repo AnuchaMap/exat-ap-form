@@ -12,7 +12,7 @@
                 </Toolbar>
             </headerToolbar>
             <content>
-                <VBox class="sapUiMediumPadding">
+                <VBox class="sapUiMediumPadding sapUiSmallMarginBottom">
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
                             <core:Icon src="sap-icon://employee"
@@ -21,7 +21,7 @@
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้ขอเบิก" class="labelGrey" />
+                            <Text text="ผู้จัดทำ" class="labelGrey" />
                             <Text text="{context>/CreatedBy}" class="valueBlue" />
                             <ObjectStatus
                                 text="ดำเนินการแล้ว"
@@ -29,17 +29,17 @@
                                 state="Success" />
                 
                         </VBox>
-                    </HBox>                  
+                    </HBox> 
 
-                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://search"
+                            <core:Icon src="sap-icon://employee"
                                 color="{= ((${context>/Approver1Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้ตรวจสอบ" class="labelGrey" />
+                            <Text text="ผู้ขอเบิก" class="labelGrey" />
                             <Text text="{= ((${context>/Approver1Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver1Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver1Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver1Comment} ? 'Comment: ' + ${context>/Approver1Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver1Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -53,17 +53,17 @@
                                 text="รอดำเนินการ"
                                 state="None" />
                         </VBox>
-                    </HBox>
+                    </HBox>                 
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://approvals"
+                            <core:Icon src="sap-icon://search"
                                 color="{= ((${context>/Approver2Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้อนุมัติ Division" class="labelGrey" />
+                            <Text text="ผู้ตรวจสอบ" class="labelGrey" />
                             <Text text="{= ((${context>/Approver2Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver2Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver2Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver2Comment} ? 'Comment: ' + ${context>/Approver2Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver2Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -81,13 +81,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://building"
+                            <core:Icon src="sap-icon://approvals"
                                 color="{= ((${context>/Approver3Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="ผู้อนุมัติ Deputy" class="labelGrey" />
+                            <Text text="ผู้อนุมัติ 1" class="labelGrey" />
                             <Text text="{= ((${context>/Approver3Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver3Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver3Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver3Comment} ? 'Comment: ' + ${context>/Approver3Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver3Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -105,13 +105,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://lead"
+                            <core:Icon src="sap-icon://building"
                                 color="{= ((${context>/Approver4Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="กองงบประมาณ Staff" class="labelGrey" />
+                            <Text text="ผู้อนุมัติ 2" class="labelGrey" />
                             <Text text="{= ((${context>/Approver4Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver4Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver4Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver4Comment} ? 'Comment: ' + ${context>/Approver4Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver4Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -129,13 +129,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://request"
+                            <core:Icon src="sap-icon://lead"
                                 color="{= ((${context>/Approver5Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="กองงบประมาณ Manager" class="labelGrey" />
+                            <Text text="ผู้จัดทำงบประมาณ งท." class="labelGrey" />
                             <Text text="{= ((${context>/Approver5Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver5Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver5Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver5Comment} ? 'Comment: ' + ${context>/Approver5Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver5Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -153,13 +153,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://inspect"
+                            <core:Icon src="sap-icon://request"
                                 color="{= ((${context>/Approver6Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="แผนกตรวจจ่าย Staff" class="labelGrey" />
+                            <Text text="ผู้อนุมัติงบประมาณ ห.งท." class="labelGrey" />
                             <Text text="{= ((${context>/Approver6Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver6Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver6Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver6Comment} ? 'Comment: ' + ${context>/Approver6Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver6Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -177,13 +177,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://money-bills"
+                            <core:Icon src="sap-icon://inspect"
                                 color="{= ((${context>/Approver7Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="แผนกตรวจจ่าย ห.ตจ." class="labelGrey" />
+                            <Text text="ผู้อนุมัติงบประมาณ ผอ.กงป." class="labelGrey" />
                             <Text text="{= ((${context>/Approver7Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver7Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver7Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver7Comment} ? 'Comment: ' + ${context>/Approver7Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver7Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -201,13 +201,13 @@
 
                     <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://write-new-document"
+                            <core:Icon src="sap-icon://money-bills"
                                 color="{= ((${context>/Approver8Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
                             <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="อนุมัติการจ่ายเงิน ผอ.กกง." class="labelGrey" />
+                            <Text text="ผู้ตรวจสอบการจ่ายเงิน ตจ.1" class="labelGrey" />
                             <Text text="{= ((${context>/Approver8Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver8Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver8Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver8Comment} ? 'Comment: ' + ${context>/Approver8Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver8Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -223,14 +223,15 @@
                         </VBox>
                     </HBox>
 
-                    <HBox alignItems="Start"  class="sapUiSmallMarginBottom">
+                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
-                            <core:Icon src="sap-icon://money-bills"
+                            <core:Icon src="sap-icon://write-new-document"
                                 color="{= ((${context>/Approver9Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
                                 size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
                         </VBox>
                         <VBox>
-                            <Text text="กองการเงิน Staff" class="labelGrey" />
+                            <Text text="ผู้ตรวจสอบการจ่ายเงิน ห.ตจ.1" class="labelGrey" />
                             <Text text="{= ((${context>/Approver9Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver9Name} }" class="valueBlue" />
                             <Text text="{= ((${context>/Approver9Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver9Comment} ? 'Comment: ' + ${context>/Approver9Comment} : 'Comment: -') }" 
                                 class="labelGrey" visible="{= ((${context>/Approver9Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
@@ -241,6 +242,125 @@
                                 state="Success" />
                             <ObjectStatus
                                 visible="{= !${context>/Approver9Name} &amp;&amp; ((${context>/Approver9Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="รอดำเนินการ"
+                                state="None" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                        <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
+                            <core:Icon src="sap-icon://write-new-document"
+                                color="{= ((${context>/Approver10Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
+                                size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
+                        </VBox>
+                        <VBox>
+                            <Text text="ผู้ตรวจสอบ 1 ผอ.กกง" class="labelGrey" />
+                            <Text text="{= ((${context>/Approver10Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver10Name} }" class="valueBlue" />
+                            <Text text="{= ((${context>/Approver10Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver10Comment} ? 'Comment: ' + ${context>/Approver10Comment} : 'Comment: -') }" 
+                                class="labelGrey" visible="{= ((${context>/Approver10Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
+                            <ObjectStatus
+                                visible="{= !!${context>/Approver10Name} &amp;&amp; ((${context>/Approver10Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="อนุมัติแล้ว"
+                                icon="sap-icon://accept"
+                                state="Success" />
+                            <ObjectStatus
+                                visible="{= !${context>/Approver10Name} &amp;&amp; ((${context>/Approver10Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="รอดำเนินการ"
+                                state="None" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                        <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
+                            <core:Icon src="sap-icon://write-new-document"
+                                color="{= ((${context>/Approver11Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
+                                size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
+                        </VBox>
+                        <VBox>
+                            <Text text="ผู้ตรวจสอบ 2 ผอ.ฝกง." class="labelGrey" />
+                            <Text text="{= ((${context>/Approver11Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver11Name} }" class="valueBlue" />
+                            <Text text="{= ((${context>/Approver11Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver11Comment} ? 'Comment: ' + ${context>/Approver11Comment} : 'Comment: -') }" 
+                                class="labelGrey" visible="{= ((${context>/Approver11Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
+                            <ObjectStatus
+                                visible="{= !!${context>/Approver11Name} &amp;&amp; ((${context>/Approver11Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="อนุมัติแล้ว"
+                                icon="sap-icon://accept"
+                                state="Success" />
+                            <ObjectStatus
+                                visible="{= !${context>/Approver11Name} &amp;&amp; ((${context>/Approver11Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="รอดำเนินการ"
+                                state="None" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                        <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
+                            <core:Icon src="sap-icon://write-new-document"
+                                color="{= ((${context>/Approver12Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
+                                size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
+                        </VBox>
+                        <VBox>
+                            <Text text="ผู้ตรวจสอบ 3 รผง." class="labelGrey" />
+                            <Text text="{= ((${context>/Approver12Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver12Name} }" class="valueBlue" />
+                            <Text text="{= ((${context>/Approver12Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver12Comment} ? 'Comment: ' + ${context>/Approver12Comment} : 'Comment: -') }" 
+                                class="labelGrey" visible="{= ((${context>/Approver12Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
+                            <ObjectStatus
+                                visible="{= !!${context>/Approver12Name} &amp;&amp; ((${context>/Approver12Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="อนุมัติแล้ว"
+                                icon="sap-icon://accept"
+                                state="Success" />
+                            <ObjectStatus
+                                visible="{= !${context>/Approver12Name} &amp;&amp; ((${context>/Approver12Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="รอดำเนินการ"
+                                state="None" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
+                        <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
+                            <core:Icon src="sap-icon://write-new-document"
+                                color="{= ((${context>/Approver13Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
+                                size="1.2rem" />
+                            <core:HTML content="&lt;div style='width:1.5px; height:32px; border-left: 1.5px dashed #B4B2A9; margin:4px auto;'&gt;&lt;/div&gt;" />
+                        </VBox>
+                        <VBox>
+                            <Text text="ผู้อนุมัติการจ่ายเงิน (ผอ.กกง., ผอ.ฝกง., รผง., ผวก.)" class="labelGrey" />
+                            <Text text="{= ((${context>/Approver13Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver13Name} }" class="valueBlue" />
+                            <Text text="{= ((${context>/Approver13Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver13Comment} ? 'Comment: ' + ${context>/Approver13Comment} : 'Comment: -') }" 
+                                class="labelGrey" visible="{= ((${context>/Approver13Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
+                            <ObjectStatus
+                                visible="{= !!${context>/Approver13Name} &amp;&amp; ((${context>/Approver13Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="อนุมัติแล้ว"
+                                icon="sap-icon://accept"
+                                state="Success" />
+                            <ObjectStatus
+                                visible="{= !${context>/Approver13Name} &amp;&amp; ((${context>/Approver13Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="รอดำเนินการ"
+                                state="None" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox alignItems="Start"  class="sapUiSmallMarginBottom">
+                        <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
+                            <core:Icon src="sap-icon://money-bills"
+                                color="{= ((${context>/Approver14Name} || '').toUpperCase() !== 'NONAPPROVE') ? '#27500A' : '#888780' }"
+                                size="1.2rem" />
+                        </VBox>
+                        <VBox>
+                            <Text text="ผู้จ่ายเงิน กง." class="labelGrey" />
+                            <Text text="{= ((${context>/Approver14Name} || '').toUpperCase() === 'NONAPPROVE') ? '-' : ${context>/Approver14Name} }" class="valueBlue" />
+                            <Text text="{= ((${context>/Approver14Name} || '').toUpperCase() === 'NONAPPROVE') ? '' : (${context>/Approver14Comment} ? 'Comment: ' + ${context>/Approver14Comment} : 'Comment: -') }" 
+                                class="labelGrey" visible="{= ((${context>/Approver14Name} || '').toUpperCase() !== 'NONAPPROVE') }" />
+                            <ObjectStatus
+                                visible="{= !!${context>/Approver14Name} &amp;&amp; ((${context>/Approver14Name} || '').toUpperCase() !== 'NONAPPROVE') }"
+                                text="อนุมัติแล้ว"
+                                icon="sap-icon://accept"
+                                state="Success" />
+                            <ObjectStatus
+                                visible="{= !${context>/Approver14Name} &amp;&amp; ((${context>/Approver14Name} || '').toUpperCase() !== 'NONAPPROVE') }"
                                 text="รอดำเนินการ"
                                 state="None" />
                         </VBox>

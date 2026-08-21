@@ -232,8 +232,17 @@
         "Approver13Name":     { "type": "string", "title": "Approver 13 Name"     },
         "Approver13Position": { "type": "string", "title": "Approver 13 Position" },
         "Approver13Date":     { "type": "string", "title": "Approver 13 Date"     },    
-        "Approver13Comment":  { "type": "string", "title": "Approver 13 Comment"  }
+        "Approver13Comment":  { "type": "string", "title": "Approver 13 Comment"  },
 
+        "Approver14Name":     { "type": "string", "title": "Approver 14 Name"     },
+        "Approver14Position": { "type": "string", "title": "Approver 14 Position" },
+        "Approver14Date":     { "type": "string", "title": "Approver 14 Date"     },    
+        "Approver14Comment":  { "type": "string", "title": "Approver 14 Comment"  },
+
+        "Approver15Name":     { "type": "string", "title": "Approver 15 Name"     },
+        "Approver15Position": { "type": "string", "title": "Approver 15 Position" },
+        "Approver15Date":     { "type": "string", "title": "Approver 15 Date"     },    
+        "Approver15Comment":  { "type": "string", "title": "Approver 15 Comment"  }
 
       }
     },
