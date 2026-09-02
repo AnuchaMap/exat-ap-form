@@ -352,7 +352,7 @@
                             
                         </VBox>
                         <VBox>
-                            <Text text="ผู้เบิกชดเชย กง." class="labelGrey" />
+                            <Text text="ผู้โอนเงิน กง." class="labelGrey" />
                             <Text text="{context>/Approver13Name}" class="valueBlue" />
                             <Text text="{= ${context>/Approver13Comment} ? 'Comment: ' + ${context>/Approver13Comment} : 'Comment: -' }" 
                                 class="labelGrey" />
