@@ -12,9 +12,8 @@
                 </Toolbar>
             </headerToolbar>
             <content>
-                <VBox class="sapUiMediumPadding">
-                    
-                     <HBox alignItems="Start" class="sapUiSmallMarginBottom sapUiSmallMarginTop">
+                <VBox class="sapUiMediumPadding sapUiSmallMarginBottom">
+                    <HBox alignItems="Start" class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
                             <core:Icon src="sap-icon://person-placeholder"
                                 color="{= ${context>/CreatedBy} ? '#27500A' : '#888780' }"
@@ -32,7 +31,7 @@
                         </VBox>
                     </HBox>
 
-                     <HBox alignItems="Start">
+                     <HBox alignItems="Start"  class="sapUiSmallMarginBottom">
                         <VBox width="2.5rem" alignItems="Center" class="sapUiSmallMarginEnd">
                             <core:Icon src="sap-icon://inspect"
                                 color="{= ${context>/Approver1Name} ? '#27500A' : '#888780' }"

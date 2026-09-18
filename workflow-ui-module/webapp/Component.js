@@ -100,7 +100,7 @@ sap.ui.define(
         var sWorkflowType = oContextModel.getProperty("/WorkflowType");
         var sApproverComment = (oContextModel.getProperty("/ApproverComment") || "").trim();
 
-        if (["pc01", "av01"].includes(sWorkflowType) && outcomeId === "reject" && sApproverComment.length === 0) {
+        if (["pc01", "av01", "av02"].includes(sWorkflowType) && outcomeId === "reject" && sApproverComment.length === 0) {
           MessageBox.warning("กรุณากรอก Comment ก่อนกด Reject");
           return;
         }
